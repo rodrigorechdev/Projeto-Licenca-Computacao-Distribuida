@@ -61,12 +61,12 @@ paths:
             type: "string"
           - name: "licenca"
             in: "query"
-            description: "id do usuário"
+            description: "código da licença"
             required: true
             type: "string"  
         responses:
             "204":
-                description: Licença disponibilizada com sucesso
+                description: Licença renovada com sucesso
                 
   /licenca/devolver:
     patch:
@@ -87,7 +87,7 @@ paths:
             type: "string"
           - name: "licenca"
             in: "query"
-            description: "id do usuário"
+            description: "código da licença"
             required: true
             type: "string" 
         responses:
