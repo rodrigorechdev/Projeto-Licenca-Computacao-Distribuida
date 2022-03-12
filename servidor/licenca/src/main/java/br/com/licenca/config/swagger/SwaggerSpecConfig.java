@@ -1,4 +1,4 @@
-package br.com.licenca.controller;
+package br.com.licenca.config.swagger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
