@@ -23,7 +23,7 @@ paths:
         produces:
         - "application/json"
         parameters:
-          - name: "usuario"
+          - name: "usuarioId"
             in: "query"
             description: "Id do usuário"
             required: true
@@ -34,9 +34,9 @@ paths:
                 schema:
                     type: "array"
                     items:
-                        $ref: "#/definitions/LicencaSchema"
+                        $ref: "#/definitions/LicencaResponse"
             "412":
-                description: Todas as licenças disponíveis estão sendo utilizadas
+                description: Todas as licenças disponíveis estão sendo utilizadas, Usuario informado não existe
                 schema:
                     type: "array"
                     items:
@@ -54,12 +54,12 @@ paths:
         produces:
         - "application/json"
         parameters:
-          - name: "usuario"
+          - name: "usuarioId"
             in: "query"
             description: "Id do usuário"
             required: true
             type: "string"
-          - name: "licenca"
+          - name: "licencaCodigo"
             in: "query"
             description: "Código da licença"
             required: true
@@ -67,6 +67,12 @@ paths:
         responses:
             "204":
                 description: Licença renovada com sucesso
+            "412":
+                description: Usuário não existe, licença não existe, licença não está associada ao usuário
+                schema:
+                    type: "array"
+                    items:
+                        $ref: "#/definitions/ExceptionSchema"
                 
   /licenca/devolver:
     delete:
@@ -80,12 +86,12 @@ paths:
         produces:
         - "application/json"
         parameters:
-          - name: "usuario"
+          - name: "usuarioId"
             in: "query"
             description: "Id do usuário"
             required: true
             type: "string"
-          - name: "licenca"
+          - name: "licencaCodigo"
             in: "query"
             description: "Código da licença"
             required: true
@@ -93,10 +99,15 @@ paths:
         responses:
             "204":
                 description: Licença devolvida com sucesso
+            "412":
+                description: Usuário não existe, licença não existe, licença não está associada ao usuário
+                schema:
+                    type: "array"
+                    items:
+                        $ref: "#/definitions/ExceptionSchema"
                           
-definitions:
-            
-  LicencaSchema:
+definitions: 
+  LicencaResponse:
     type: "object"
     properties:
         valor:
@@ -109,3 +120,18 @@ definitions:
           mensagem:
             type: string
             example: "Não há licença disponível no momento"
+          timestamp:
+            type: string
+            example: "2022-03-12T20:45:16.226+0000"
+          status: 
+            type: integer
+            example: 412,
+          error: 
+            type: string
+            example: "Precondition Failed"
+          message: 
+            type: string
+            example: "Usuário 2321 não existe"
+          path: 
+            type: string
+            example: "/licenca"
