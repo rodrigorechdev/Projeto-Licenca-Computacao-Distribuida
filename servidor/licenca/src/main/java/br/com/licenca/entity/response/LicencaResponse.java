@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class LicencaResponse {
-    private String avatar;
+    private String valor;
 }

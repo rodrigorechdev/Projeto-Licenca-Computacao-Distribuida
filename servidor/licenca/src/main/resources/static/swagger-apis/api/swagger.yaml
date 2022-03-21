@@ -32,15 +32,11 @@ paths:
             "200":
                 description: Licença retornada com sucesso
                 schema:
-                    type: "array"
-                    items:
-                        $ref: "#/definitions/LicencaResponse"
+                    $ref: "#/definitions/LicencaResponse"
             "412":
                 description: Todas as licenças disponíveis estão sendo utilizadas, Usuario informado não existe
                 schema:
-                    type: "array"
-                    items:
-                        $ref: "#/definitions/ExceptionSchema"
+                    $ref: "#/definitions/ExceptionSchema"
                         
   /licenca/renovar:
     patch:
@@ -70,9 +66,7 @@ paths:
             "412":
                 description: Usuário não existe, licença não existe, licença não está associada ao usuário
                 schema:
-                    type: "array"
-                    items:
-                        $ref: "#/definitions/ExceptionSchema"
+                    $ref: "#/definitions/ExceptionSchema"
                 
   /licenca/devolver:
     delete:
@@ -102,9 +96,7 @@ paths:
             "412":
                 description: Usuário não existe, licença não existe, licença não está associada ao usuário
                 schema:
-                    type: "array"
-                    items:
-                        $ref: "#/definitions/ExceptionSchema"
+                    $ref: "#/definitions/ExceptionSchema"
                           
 definitions: 
   LicencaResponse:
