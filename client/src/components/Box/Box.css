@@ -1,0 +1,31 @@
+.dev-box {
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    min-height: 200px;
+}
+
+.dev-box:hover {
+    background-color: #e0e0e0;
+}
+
+.dev-name {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.dev-action {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.time-remaining {
+    margin: 15px 0 5px 0px;
+    padding: 5px;
+    text-align: center;
+}
+
+.time-remaining.warning {
+    background-color: #ffffb8;
+}
