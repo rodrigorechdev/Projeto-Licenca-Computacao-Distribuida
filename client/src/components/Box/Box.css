@@ -3,7 +3,7 @@
     margin-bottom: 15px;
     background-color: #f5f5f5;
     border-radius: 5px;
-    min-height: 200px;
+    min-height: 210px;
 }
 
 .dev-box:hover {
@@ -13,6 +13,10 @@
 .dev-name {
     text-align: center;
     margin-bottom: 15px;
+}
+
+.dev-name a {
+    cursor: help;
 }
 
 .dev-action {

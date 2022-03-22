@@ -21,7 +21,7 @@ class ApiServicer {
     }
     
     generateURL(path, params) {
-        params = typeof params == 'object' ? params : {}
+        params = typeof params === 'object' ? params : {}
         const url = new URL(API_URL)
 
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
@@ -40,7 +40,7 @@ class ApiServicer {
                 method: method
             })
 
-            if (response.status == 204) {
+            if (response.status === 204) {
                 this.logMessage(`RESPONSE: null`)
                 return {
                     data: {},
@@ -50,7 +50,7 @@ class ApiServicer {
 
             const json = (await response.json())
 
-            if (response.status == 412) {
+            if (response.status === 412) {
                 this.logMessage(`RESPONSE: ${JSON.stringify(json, null, 2)}`)
                 return {
                     message: json.message

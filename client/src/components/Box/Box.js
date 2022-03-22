@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
@@ -17,16 +17,18 @@ const Box = ({ id }) => {
 
     const { dispatch } = useLogger()
 
-    const logMessage = (msg) => dispatch({ type: 'log', payload: msg })
+    const logMessage = useCallback((msg) => {
+        dispatch({ type: 'log', payload: msg })
+    }, [dispatch])
 
     useEffect(() => {
         ApiService.setLogMessage(logMessage)
-    }, [])
+    }, [logMessage])
 
     useEffect(() => {
         if (!usingLicence) return
 
-        if (counter == 0) {
+        if (counter === 0) {
             setUsingLicence(false)
             logMessage(`Tempo da licença ${licenseId} do dev #${id} está esgotado`)
             return
@@ -40,7 +42,12 @@ const Box = ({ id }) => {
         return () => {
             clearInterval(licenseTimeout.current);
         }
-    }, [counter, usingLicence])
+    }, [counter, usingLicence, id, licenseId, logMessage])
+
+    const handleLicenceClick = (e) => {
+        if (e && e.preventDefault)
+            e.preventDefault();
+    }
 
     const handleAquireClick = async (e) => {
         e.preventDefault()
@@ -57,7 +64,7 @@ const Box = ({ id }) => {
             return
         }
 
-        const licenseIdResponse = data.avatar
+        const licenseIdResponse = data.valor
         logMessage(`Licença ${licenseIdResponse} adquirida para o dev #${id}`)
 
         setLicenseId(licenseIdResponse)
@@ -115,13 +122,15 @@ const Box = ({ id }) => {
 
     return (
         <div className="dev-box">
-            <div className="dev-name">Dev #{id}</div>
+            {!usingLicence && (<div className="dev-name">Dev #{id}</div>)}
 
-            {!usingLicence && <a href="#" onClick={handleAquireClick} className="dev-action btn btn-primary">Adquirir</a>}
+            {usingLicence && (<div className="dev-name"><a href="/" onClick={handleLicenceClick} title={`Licença: ${licenseId}`}>Dev #{id}</a></div>)}
 
-            {usingLicence && <a href="#" onClick={handleRenewClick} className="dev-action btn btn-primary">Renovar</a>}
+            {!usingLicence && <button onClick={handleAquireClick} className="dev-action btn btn-primary">Adquirir</button>}
 
-            {usingLicence && <a href="#" onClick={handleReleaseClick} className="dev-action btn btn-info">Liberar</a>}
+            {usingLicence && <button onClick={handleRenewClick} className="dev-action btn btn-primary">Renovar</button>}
+
+            {usingLicence && <button onClick={handleReleaseClick} className="dev-action btn btn-info">Liberar</button>}
 
             {usingLicence && <div className={`time-remaining ${counter <= 10 ? 'warning' : ''}`}>Tempo: {moment('00:00', 'mm:ss').add(counter, 's').format('mm:ss')
             }</div>}
