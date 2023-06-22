@@ -1,8 +1,10 @@
-### Documentação API
+### README
 
+## Contrato
+O [Contrato da API](https://github.com/rodrigorechh/Projeto-Licenca-Computacao-Distribuida/blob/main/servidor/licenca/src/main/resources/static/swagger-apis/api/swagger.yaml) foi implementado via swagger
+Dica: Você pode jogar o código do contrato no [Swagger Editor](https://editor.swagger.io/) para visualiza-lo online.
 
-
-## C
+## Descrição do projeto
 - O código contém um Hash <b>gerenciador de contratações</b>. A chave desse hash é o código da licença e o valor do hash é o objeto Contratação. As contratações são feitas e desfeitas manipulando esse hash conforme abaixo:
 	- O hash inicia contendo um elemento para cada licenca(a lista de licencas estão no ConfigValores.java), a chave de cada elemento é a chava da licença e o valor será um objeto de Contratação com atributo status = DISPONÍVEL
 	- O objeto contratação guarda o usuário contratante, o instante que a contracao foi feita(caso esteja contratato) e o estado da contratacao, que pode ser:
